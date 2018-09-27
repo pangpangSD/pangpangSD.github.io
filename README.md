@@ -1,7 +1,7 @@
 
 
-#### 个性域名 http://wapchief.com
-#### 原始域名 http://wapchief.github.io
+#### 个性域名 http://pangpangsd.com
+#### 原始域名 http://pangpangsd.github.io
 
 搭建教程请参考http://www.jianshu.com/p/a39573555039
 
