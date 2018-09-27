@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="android,kotlin," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="界面做的比较丑，但是基本上实现了功能。为了学习最近比较火的kotlin语言，就试着写了个demo。 参考上篇文章仿掌上英雄联盟的效果。">
+<meta name="keywords" content="android,kotlin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Kotlin仿的简书个人主页，只需一个控件">
+<meta property="og:url" content="http://yoursite.com/2018/09/27/20170709_1/index.html">
+<meta property="og:site_name" content="yano的博客">
+<meta property="og:description" content="界面做的比较丑，但是基本上实现了功能。为了学习最近比较火的kotlin语言，就试着写了个demo。 参考上篇文章仿掌上英雄联盟的效果。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2858691-238af768dfccc201.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2858691-aa562024569678e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2858691-7db3dbdd40ea5089.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/480">
+<meta property="og:updated_time" content="2018-09-27T02:31:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Kotlin仿的简书个人主页，只需一个控件">
+<meta name="twitter:description" content="界面做的比较丑，但是基本上实现了功能。为了学习最近比较火的kotlin语言，就试着写了个demo。 参考上篇文章仿掌上英雄联盟的效果。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2858691-238af768dfccc201.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/27/20170709_1/"/>
+
+
+
+
+
+  <title>使用Kotlin仿的简书个人主页，只需一个控件 | yano的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yano的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Java、GoLANG、IT互联网</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/27/20170709_1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yano">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yano的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用Kotlin仿的简书个人主页，只需一个控件</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-27T10:31:47+08:00">
+                2018-09-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>界面做的比较丑，但是基本上实现了功能。<br>为了学习最近比较火的kotlin语言，就试着写了个demo。</p>
+<p>参考上篇文章<a href="http://www.jianshu.com/p/5dc19d15c096" target="_blank" rel="noopener">仿掌上英雄联盟</a>的效果。</p>
+<a id="more"></a>
+<p><img src="http://upload-images.jianshu.io/upload_images/2858691-238af768dfccc201.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="效果图"></p>
+<blockquote>
+<h5 id="一、开始前的准备"><a href="#一、开始前的准备" class="headerlink" title="一、开始前的准备"></a>一、开始前的准备</h5></blockquote>
+<ul>
+<li><p><strong>导入kotlin开发环境：</strong><br>在androidStudio3.0版本默认已经集成好了。直接在创建项目的时候勾选include Kotlin support，会自动帮我们创建好kotlin语言的项目。不勾选就是java。<br><img src="http://upload-images.jianshu.io/upload_images/2858691-aa562024569678e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+</li>
+<li><p><strong>如果是手动集成kotlin：</strong><br>需要两个地方进行配置<br>1、根目录下的  project - build.gradle</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">    ext.kotlin_version = &apos;1.1.2-4&apos;</span><br><span class="line">....//省略部分代码</span><br><span class="line">   &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        classpath &apos;com.android.tools.build:gradle:2.3.0&apos;</span><br><span class="line">        classpath &quot;org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version&quot;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>2、model - build.gradle<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: &apos;kotlin-android&apos;</span><br><span class="line">apply plugin: &apos;kotlin-android-extensions&apos;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    compile &quot;org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version&quot;</span><br><span class="line"> .....//省略部分代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>需要注意的是如果是自动集成的默认没有<code>apply plugin: &#39;kotlin-android-extensions&#39;</code><br>该方法需要手动添加，关于用处后面再说。</strong></p>
+<blockquote>
+<h5 id="二、加入控件，创建布局"><a href="#二、加入控件，创建布局" class="headerlink" title="二、加入控件，创建布局"></a>二、加入控件，创建布局</h5></blockquote>
+<p>前面说的一个控件就是指scrollablelayout，在GitHub已经开源很久了。<br>已经提供好了折叠所需要的布局。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile &apos;com.github.cpoopc:scrollablelayoutlib:1.0.1&apos;</span><br></pre></td></tr></table></figure>
+<p>Scrollable需要三个子view，来分别展示：折叠的部分、标题部分、滚动的部分。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2858691-7db3dbdd40ea5089.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/480" alt="仿简书个人中心"></p>
+<p>所以布局中大体就是一个标题栏+一个ScrollacleLayout</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    xmlns:tools=&quot;http://schemas.android.com/tools&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    android:orientation=&quot;vertical&quot;</span><br><span class="line">    tools:context=&quot;com.wapchief.kotlin.MainActivity&quot;&gt;</span><br><span class="line">    &lt;!--标题栏--&gt;</span><br><span class="line">    &lt;include layout=&quot;@layout/action_bar&quot;/&gt;</span><br><span class="line">    &lt;!--包裹三个View--&gt;</span><br><span class="line">    &lt;com.cpoopc.scrollablelayoutlib.ScrollableLayout</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;match_parent&quot;</span><br><span class="line">        android:background=&quot;@android:color/white&quot;</span><br><span class="line">        android:orientation=&quot;vertical&quot;&gt;</span><br><span class="line">        &lt;!--header--&gt;</span><br><span class="line">        &lt;include layout=&quot;@layout/main_header&quot; /&gt;</span><br><span class="line">        &lt;!--tab--&gt;</span><br><span class="line">        &lt;include layout=&quot;@layout/main_tablayout&quot; /&gt;</span><br><span class="line">        &lt;!--footer--&gt;</span><br><span class="line">        &lt;android.support.v4.view.ViewPager</span><br><span class="line">            android:id=&quot;@+id/vp&quot;</span><br><span class="line">            android:layout_width=&quot;match_parent&quot;</span><br><span class="line">            android:layout_height=&quot;match_parent&quot; /&gt;</span><br><span class="line">    &lt;/com.cpoopc.scrollablelayoutlib.ScrollableLayout&gt;</span><br><span class="line"></span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+<p>这里的布局跟java的一样，按正常的方式写就好。主要是在activity中的变化。</p>
+<blockquote>
+<h5 id="三、在activity中实例化"><a href="#三、在activity中实例化" class="headerlink" title="三、在activity中实例化"></a>三、在activity中实例化</h5></blockquote>
+<ul>
+<li><strong>实例化控件：</strong><br>和java不同的是kotlin不需要通过findviewby来获取控件。java中如果存在多个视图文件布局就要创建多个view，比如这里我用的都是lnclude，如果是java中就要创建四个view对象。再分别实例化。<br>在kotlin中提供了更加简洁的方法  : 直接通过导入包的形式来拿到控件，<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import kotlinx.android.synthetic.main.activity_main.*</span><br><span class="line">import kotlinx.android.synthetic.main.action_bar.*</span><br><span class="line">import kotlinx.android.synthetic.main.main_tablayout.*</span><br><span class="line">import kotlinx.android.synthetic.main.main_header.*</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这样就直接拿到了所有用到的view中的所有控件,<code>.*</code>就是实例化View中所有的id，<br>如果想实例化单个id，就是<code>import kotlinx.android.synthetic.main.main_header.id</code>。</p>
+<ul>
+<li>在通过<code>kotlinx</code>实例化的时候，刚开始遇到一个问题就是找不到该方法，后来查到是因为androidStudio自动创建的kotiln没有<code>apply plugin: &#39;kotlin-android-extensions&#39;</code>这一行代码。<br>所以在创建项目的时候要检查是否存在。</li>
+</ul>
+<ul>
+<li><strong>初始化fragment：</strong><br>由于在viewpager切换用到了fragment，所以要创建一个存放fragment的集合<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var fragments: MutableList&lt;Fragment&gt; = ArrayList&lt;Fragment&gt;()</span><br><span class="line">        fragments.add(Fragment1())</span><br><span class="line">        fragments.add(Fragment1());</span><br><span class="line">        fragments.add(Fragment1());</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>和java不同的是，kotlin使用的是MutableList，并且变量名是在前的，<br>并且添加Fragment的时候也不需要new Fragment对象，是不是简洁了很多。</p>
+<ul>
+<li><strong>关联viewpager:</strong><br>在kotlin中已经帮我们简化了很多get、set方法，比如setAdapter直接调用adapter 就可以使用，如果要设置控件的显示或隐藏就是<code>header_1.visibility=View.GONE</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vp.adapter=viewPagerAdapter(supportFragmentManager,fragments)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>viewpager需要一个适配器，使用内部类创建一个viewPagerAdapter，<br><code>fm</code>和<code>list</code>分别为参数，<code>FragmentManager</code>和<code>List&lt;Fragment&gt;</code>为类型，<br><code>FragmentPagerAdapter</code>相当于<code>extend FragmentPagerAdapter</code>继承了该类。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//继承 FragmentPagerAdapter 创建适配器</span><br><span class="line">   class viewPagerAdapter(fm: FragmentManager?, var list: List&lt;Fragment&gt;) : FragmentPagerAdapter(fm) &#123;</span><br><span class="line">       override fun getItem(position: Int): Fragment &#123;</span><br><span class="line">           return list.get(position)</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       override fun getCount(): Int &#123;</span><br><span class="line">           return list.size</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><strong>监听view pager事件：</strong><br>这里要监听viewpager，实现切换Framgment切换的效果<br>重写onPagerSelected方法。<br>when就是循环相当于switch case语句<br>如果只执行一个方法就不需要加{}<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">override fun onPageSelected(position: Int) &#123;</span><br><span class="line">                //判断滑动后选择的页面设置相应的标签被选中</span><br><span class="line">                when (position) &#123;</span><br><span class="line">                    0 -&gt; &#123;</span><br><span class="line">                        initTabLayout(tab1_tv, tab1_v)</span><br><span class="line">                        clearTabLayout(tab2_tv, tab2_v)</span><br><span class="line">                        clearTabLayout(tab3_tv, tab3_v)</span><br><span class="line">                    &#125;</span><br><span class="line">               </span><br><span class="line">                    1 -&gt; &#123;</span><br><span class="line">                        initTabLayout(tab2_tv, tab2_v)</span><br><span class="line">                        clearTabLayout(tab1_tv, tab1_v)</span><br><span class="line">                        clearTabLayout(tab3_tv, tab3_v)</span><br><span class="line">                    &#125;</span><br><span class="line">                    2 -&gt; &#123;</span><br><span class="line">                        initTabLayout(tab3_tv, tab3_v)</span><br><span class="line">                        clearTabLayout(tab2_tv, tab2_v)</span><br><span class="line">                        clearTabLayout(tab1_tv, tab1_v)</span><br><span class="line">                    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>控件不需要实例化，在方法中定义好控件的类型，需要调用的时候直接传递控件id，在引用资源id,同样的例子：resources替代了java中的getResources<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/*初始化tab标签*/</span><br><span class="line">   private fun initTabLayout(tv: TextView,tv2: TextView) &#123;</span><br><span class="line">       tv.setTextColor(resources.getColor(R.color.tab_select))</span><br><span class="line">       tv2.setBackgroundColor(resources.getColor(R.color.tab_select))</span><br><span class="line">   &#125;</span><br><span class="line">   /*重置tab标签颜色*/</span><br><span class="line">   private fun clearTabLayout(tv: TextView,tv2: TextView)&#123;</span><br><span class="line">       tv.setTextColor(resources.getColor(R.color.tab_clear))</span><br><span class="line">       tv2.setBackgroundColor(Color.WHITE)</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><strong>最后用到的就是监听:</strong><br>也是最常用的方法之一，kotlin中实现监听不需要实例化监听事件，直接使用一行代码调用就实现了监听操作<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">tab1.setOnClickListener &#123;</span><br><span class="line">            vp.setCurrentItem(0)</span><br><span class="line">            initTabLayout(tab1_tv, tab1_v)</span><br><span class="line">            clearTabLayout(tab2_tv, tab2_v)</span><br><span class="line">            clearTabLayout(tab3_tv, tab3_v)</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<h5 id="四、Fragment设置假数据"><a href="#四、Fragment设置假数据" class="headerlink" title="四、Fragment设置假数据"></a>四、Fragment设置假数据</h5></blockquote>
+<p>在写demo用的大多都是假数据，方便查看效果，都是通过for循环实现数据的递增添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">private fun getData(): List&lt;String&gt; &#123;</span><br><span class="line"></span><br><span class="line">    val data = ArrayList&lt;String&gt;()</span><br><span class="line">    for (i in 0..30) &#123;</span><br><span class="line">        data.add(i,&quot;测试数据：&quot;+i)</span><br><span class="line">    &#125;</span><br><span class="line">    return data</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h5 id="END"><a href="#END" class="headerlink" title="END"></a>END</h5><p>试着用Kotlin写了一个小demo，对比java感觉精简是kotlin的一大特点，能让开发者节省更多的时间，并且语法也非常好理解。有点与php类似。对于android开发者来说上手很容易。</p>
+<p><strong>相关资源：</strong></p>
+<ul>
+<li><a href="https://huanglizhuo.gitbooks.io/kotlin-in-chinese/content/GettingStarted/index.html" target="_blank" rel="noopener">Kotlin中文文档</a></li>
+<li><a href="https://github.com/cpoopc/ScrollableLayout" target="_blank" rel="noopener">ScrollableLayout开源库地址</a></li>
+<li><a href="https://github.com/wapchief/kotlin" target="_blank" rel="noopener">demo源码</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag"># android</a>
+          
+            <a href="/tags/kotlin/" rel="tag"># kotlin</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/27/2/" rel="next" title="必须要会的Git基本使用及常用命令操作">
+                <i class="fa fa-chevron-left"></i> 必须要会的Git基本使用及常用命令操作
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/27/20161004/" rel="prev" title="ListView调用按钮删除某一行item">
+                ListView调用按钮删除某一行item <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">yano</p>
+              <p class="site-description motion-element" itemprop="description">简书：八怪不姓丑</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#一、开始前的准备"><span class="nav-number">1.</span> <span class="nav-text">一、开始前的准备</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二、加入控件，创建布局"><span class="nav-number">2.</span> <span class="nav-text">二、加入控件，创建布局</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三、在activity中实例化"><span class="nav-number">3.</span> <span class="nav-text">三、在activity中实例化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#四、Fragment设置假数据"><span class="nav-number">4.</span> <span class="nav-text">四、Fragment设置假数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#END"><span class="nav-number">5.</span> <span class="nav-text">END</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yano</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

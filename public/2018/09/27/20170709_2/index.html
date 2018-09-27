@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="android," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="不单单是掌上英雄联盟，像微博发现页也用了这样的布局，当滑动到一定距离的时候，自动隐藏轮播图，或者标题栏下面的布局。并且使tablayout置顶。">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android仿掌上英雄联盟首页，实现折叠效果">
+<meta property="og:url" content="http://yoursite.com/2018/09/27/20170709_2/index.html">
+<meta property="og:site_name" content="yano的博客">
+<meta property="og:description" content="不单单是掌上英雄联盟，像微博发现页也用了这样的布局，当滑动到一定距离的时候，自动隐藏轮播图，或者标题栏下面的布局。并且使tablayout置顶。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2858691-bf0dc4e8d169d569.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2858691-e2a9d0885f4acc57.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/480">
+<meta property="og:updated_time" content="2018-09-27T02:31:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android仿掌上英雄联盟首页，实现折叠效果">
+<meta name="twitter:description" content="不单单是掌上英雄联盟，像微博发现页也用了这样的布局，当滑动到一定距离的时候，自动隐藏轮播图，或者标题栏下面的布局。并且使tablayout置顶。">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2858691-bf0dc4e8d169d569.gif?imageMogr2/auto-orient/strip">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/27/20170709_2/"/>
+
+
+
+
+
+  <title>Android仿掌上英雄联盟首页，实现折叠效果 | yano的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yano的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Java、GoLANG、IT互联网</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/27/20170709_2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yano">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yano的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android仿掌上英雄联盟首页，实现折叠效果</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-27T10:31:47+08:00">
+                2018-09-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>不单单是掌上英雄联盟，像微博发现页也用了这样的布局，当滑动到一定距离的时候，自动隐藏轮播图，或者标题栏下面的布局。并且使tablayout置顶。</p>
+<a id="more"></a>
+<p>与之相似的还有简书的个人页面也是这样的布局。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2858691-bf0dc4e8d169d569.gif?imageMogr2/auto-orient/strip" alt="lol.gif"><br>图片处理的有些不清楚。建议下载安装包自行查看效果</p>
+<ul>
+<li><a href="https://github.com/wapchief/imitationLOL/raw/master/apk/app-debug.apk" target="_blank" rel="noopener">安装包下载-2.83M</a></li>
+</ul>
+<p>#####首页大概分为几个部分</p>
+<ul>
+<li>状态栏</li>
+<li>标题栏</li>
+<li>轮播图</li>
+<li>切换的Tab</li>
+<li>资讯列表</li>
+<li>资讯列表头部推荐</li>
+<li>刷新控件</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/2858691-e2a9d0885f4acc57.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/480" alt="lol.png"></p>
+<p>整个页面是一个Activity，最外层是刷新控件，然后是标题栏和折叠布局ScrollableLayout。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;com.cjj.MaterialRefreshLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;RelativeLayout</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;match_parent&quot;&gt;</span><br><span class="line"></span><br><span class="line">        &lt;com.cpoopc.scrollablelayoutlib.ScrollableLayout</span><br><span class="line">            android:id=&quot;@+id/scrollablelayout&quot;</span><br><span class="line">            android:layout_width=&quot;match_parent&quot;</span><br><span class="line">            android:layout_height=&quot;match_parent&quot;</span><br><span class="line">            android:layout_marginTop=&quot;16dp&quot;</span><br><span class="line">            android:orientation=&quot;vertical&quot;&gt;</span><br><span class="line">            </span><br><span class="line">        &lt;/com.cpoopc.scrollablelayoutlib.ScrollableLayout&gt;</span><br><span class="line"></span><br><span class="line">        &lt;include layout=&quot;@layout/title_bar&quot; /&gt;</span><br><span class="line">    &lt;/RelativeLayout&gt;</span><br><span class="line">&lt;/com.cjj.MaterialRefreshLayout&gt;</span><br></pre></td></tr></table></figure>
+<p>ScrollableLayout里面嵌套了轮播图、tablayout、viewpager。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;com.cpoopc.scrollablelayoutlib.ScrollableLayout</span><br><span class="line">    android:id=&quot;@+id/scrollablelayout&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    android:layout_marginTop=&quot;16dp&quot;</span><br><span class="line">    android:orientation=&quot;vertical&quot;&gt;</span><br><span class="line">    &lt;!--header--&gt;</span><br><span class="line">    &lt;com.youth.banner.Banner</span><br><span class="line">        android:id=&quot;@+id/header&quot;</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;200dp&quot; /&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--置顶的部分--&gt;</span><br><span class="line">    &lt;android.support.design.widget.TabLayout</span><br><span class="line">        android:id=&quot;@+id/tab&quot;</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;50dp&quot;</span><br><span class="line">        android:background=&quot;@color/white&quot;</span><br><span class="line">        app:tabIndicatorColor=&quot;@color/tab_select&quot;</span><br><span class="line">        app:tabMode=&quot;scrollable&quot;</span><br><span class="line">        app:tabSelectedTextColor=&quot;@color/tab_select&quot; /&gt;</span><br><span class="line">    &lt;!--滚动视图--&gt;</span><br><span class="line">    &lt;android.support.v4.view.ViewPager</span><br><span class="line">        android:id=&quot;@+id/vp&quot;</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;match_parent&quot; /&gt;</span><br><span class="line">&lt;/com.cpoopc.scrollablelayoutlib.ScrollableLayout&gt;</span><br></pre></td></tr></table></figure></p>
+<p>然后切换是通过tab和viewpager联动加载的Fragment<br>Fragment中列表用的是RecyclerView，然后再给RecyclerView添加了一个Header，实现推荐功能。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;ScrollView xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;match_parent&quot;</span><br><span class="line">    &gt;</span><br><span class="line">    &lt;RelativeLayout</span><br><span class="line">        android:layout_width=&quot;match_parent&quot;</span><br><span class="line">        android:layout_height=&quot;match_parent&quot;&gt;</span><br><span class="line"></span><br><span class="line">        &lt;android.support.v7.widget.RecyclerView</span><br><span class="line">            android:layout_width=&quot;match_parent&quot;</span><br><span class="line">            android:id=&quot;@+id/fragment_lv&quot;</span><br><span class="line">            android:paddingLeft=&quot;12dp&quot;</span><br><span class="line">            android:paddingRight=&quot;12dp&quot;</span><br><span class="line">            android:nestedScrollingEnabled=&quot;false&quot;</span><br><span class="line">            android:layout_height=&quot;match_parent&quot;/&gt;</span><br><span class="line"></span><br><span class="line">        &lt;com.bartoszlipinski.recyclerviewheader2.RecyclerViewHeader</span><br><span class="line">            android:id=&quot;@+id/header&quot;</span><br><span class="line">            android:layout_width=&quot;match_parent&quot;</span><br><span class="line">            android:layout_gravity=&quot;&quot;</span><br><span class="line">            android:nestedScrollingEnabled=&quot;false&quot;</span><br><span class="line">            android:layout_height=&quot;60dp&quot;/&gt;</span><br><span class="line">    &lt;/RelativeLayout&gt;</span><br><span class="line">&lt;/ScrollView&gt;</span><br></pre></td></tr></table></figure></p>
+<p>#####创建布局需要注意的问题</p>
+<ul>
+<li><p>ScrollView和RecyclerView滚动冲突，造成滑动不流畅。<br>需要在RecyclerView设置android:nestedScrollingEnabled=”false”属性，使滚动事件交给ScrollView处理。</p>
+</li>
+<li><p>添加RecyclerViewHeader的时候，父布局只能识别RelativeLayout 、LinearLayout、和FrameLayout这三种控件。</p>
+</li>
+<li><p>ScrollableLayout子布局是固定的格式，分为三部分。</p>
+</li>
+</ul>
+<p>#####设置好布局后，进行数据的填充，先操作activty中的元素</p>
+<p>实例化控件直接用ButterKnife一键绑定了。直接加载控件数据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">private void initView() &#123;</span><br><span class="line">    //加载轮播图数据</span><br><span class="line">    initBanner();</span><br><span class="line">    //TabLayout</span><br><span class="line">    initTabLayout();</span><br><span class="line">    //创建Fragment</span><br><span class="line">    initFragment();</span><br><span class="line">    //监听滚动状态</span><br><span class="line">    initOnClickScroll();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>随便在网上找了三张图片，使用Picasso框架完成图片的加载。<br>start开启轮播。<br>这时候打开app就能看到效果了。<br>该框架支持多种轮播样式风格，根据需要自己设置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">/*轮播*/</span><br><span class="line">private void initBanner() &#123;</span><br><span class="line">    //圆形指示器</span><br><span class="line">    header.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);</span><br><span class="line">    //指示器居中</span><br><span class="line">    header.setIndicatorGravity(BannerConfig.CENTER);</span><br><span class="line">    img.add(&quot;http://m.beequick.cn/static/bee/img/m/boot_logo-275a61e3.png&quot;);</span><br><span class="line">    img.add(&quot;http://m.beequick.cn/static/bee/img/m/boot_logo-275a61e3.png&quot;);</span><br><span class="line">    img.add(&quot;http://m.beequick.cn/static/bee/img/m/boot_logo-275a61e3.png&quot;);</span><br><span class="line">    header.setImageLoader(new ImageLoader() &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public void displayImage(Context context, Object o, ImageView imageView) &#123;</span><br><span class="line">            Picasso.with(context)</span><br><span class="line">                    .load(url)</span><br><span class="line">                    .into(imageView);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    header.setImages(img);</span><br><span class="line">    header.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后进行tablayout的初始化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">private String[] titles = new String[]&#123;&quot;最新&quot;, &quot;专栏&quot;, &quot;官方&quot;, &quot;活动&quot;, &quot;攻略&quot;, &quot;娱乐&quot;, &quot;收藏&quot;&#125;;</span><br><span class="line"></span><br><span class="line">/*初始化tab标签*/</span><br><span class="line">private void initTabLayout() &#123;</span><br><span class="line"></span><br><span class="line">    for (int i=0;i&lt;titles.length;i++)&#123;</span><br><span class="line">        tab.addTab(tab.newTab().setText(titles[i]));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面只是装载了标签数据，通过setupWithViewPager关联viewpager</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">/*初始化Fragment*/</span><br><span class="line">private void initFragment() &#123;</span><br><span class="line"></span><br><span class="line">    ScrollableFragment fragment = new ScrollableFragment();</span><br><span class="line">    ScrollableFragment fragment1 = new ScrollableFragment();</span><br><span class="line">    ScrollableFragment fragment2 = new ScrollableFragment();</span><br><span class="line">    ScrollableFragment fragment3 = new ScrollableFragment();</span><br><span class="line">    ScrollableFragment fragment4 = new ScrollableFragment();</span><br><span class="line">    ScrollableFragment fragment5 = new ScrollableFragment();</span><br><span class="line">    ScrollableFragment fragment6 = new ScrollableFragment();</span><br><span class="line">    fragmentList.add(fragment);</span><br><span class="line">    fragmentList.add(fragment1);</span><br><span class="line">    fragmentList.add(fragment2);</span><br><span class="line">    fragmentList.add(fragment3);</span><br><span class="line">    fragmentList.add(fragment4);</span><br><span class="line">    fragmentList.add(fragment5);</span><br><span class="line">    fragmentList.add(fragment6);</span><br><span class="line">    adapterVP = new ViewPagerAdapter(getSupportFragmentManager());</span><br><span class="line">    vp.setAdapter(adapterVP);</span><br><span class="line">    tab.setupWithViewPager(vp);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果到这一步运行app，发现tab标签的状态或者颜色没有选中的效果，检查viewpager的adapter是否重写了getPageTitle方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public CharSequence getPageTitle(int position) &#123;</span><br><span class="line">           return titles[position];</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<p>#####到这里已经完成了acticity的工作，但是我们还要实现标题栏渐变消失的效果。<br>在android中大多数跟滚动有关的控件，都有自己的滚动监听事件，来让开发者调用，以实现高级的效果。</p>
+<p>而这里用的是ScrollableLayout控件，该控件内部也是基于ScrollView滚动，所以在内部给我们封装好了监听事件，直接调动监听方法就可以</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">/*滚动监听*/</span><br><span class="line">  private void initOnClickScroll() &#123;</span><br><span class="line">      scrollablelayout.setOnScrollListener(new ScrollableLayout.OnScrollListener() &#123;</span><br><span class="line">          @Override</span><br><span class="line">          public void onScroll(int i, int i1) &#123;</span><br><span class="line">              if (i &gt;= i1) &#123;</span><br><span class="line">                  title.setVisibility(View.GONE);</span><br><span class="line">              &#125; else &#123;</span><br><span class="line">                  title.setVisibility(View.VISIBLE);</span><br><span class="line">              &#125;</span><br><span class="line">              //通过距离设置渐变效果</span><br><span class="line">              float scale = (float) i1-i;</span><br><span class="line">              float alpha = (255 * scale);</span><br><span class="line">              float alpha2 = scale/i1*150;</span><br><span class="line">              float alphaTv = scale / i1 * 255;</span><br><span class="line">              title.setBackgroundColor(Color.argb((int) alpha2, 0, 0, 0));</span><br><span class="line">              titleBarTitle.setTextColor(Color.argb((int) alphaTv, 198, 166, 102));</span><br><span class="line">              titleBarContent.setTextColor(Color.argb((int) alphaTv,198,166,102));</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>onScroll有两个属性，一个I是滚动的距离，是根据手势滑动的距离计算出的距离，i1是从开始滚动到header消失这之间的总距离。也就是固定的。</p>
+<p>为了区别，这里加了标题栏的显示和隐藏，当底部滚动视图置顶的时候，也就是i=i1的时候，就把标题栏隐藏掉。</p>
+<p>但是我们这里是需要一个渐变隐藏的效果，也就是让控件背景颜色从不透明到全透明的实时渐变的一个过程。</p>
+<p>颜色需要用到argb，有四个参数，第一个就是透明度，<br>如果需要递增则用<code>255 * scale</code><br>递减用<code>scale ／ i1 * 255</code><br>需要半透的话，把255再除以2。</p>
+<p>#####Fragment里面需要操作的东西就少了</p>
+<p>两行代码就实现了headerview的添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">private void initAdapter() &#123;</span><br><span class="line">      View headerView = View.inflate(getContext(), R.layout.view_header, null);</span><br><span class="line">      LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());</span><br><span class="line">      recyclerView.setLayoutManager(layoutManager);</span><br><span class="line">      header.addView(headerView);</span><br><span class="line">      header.attachTo(recyclerView);</span><br><span class="line">      adapter = new FragmentAdapter(data, getActivity());</span><br><span class="line">      //分割线</span><br><span class="line">      recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));</span><br><span class="line">      recyclerView.setAdapter(adapter);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>#####总结</p>
+<p>其实要实现这种效果的方法还有很多，比如利用Design库中的CoordinatorLayout，和AppBarLayout结合来用，也能实现折叠效果。</p>
+<p>包括GitHub也有一些开源的库可供我们选择使用，像ScrollableLayout 、ObservableScrollView这些都是非常优秀的框架。</p>
+<p>在实际项目中节省了很多开发时间。</p>
+<p>唯一的时间成本就是我们学习这些框架的时间，当熟练运用之后，这些看似复杂的东西，可能只需要短短的几分钟而已。</p>
+<hr>
+<p>#####关于<br>本文所用到的开源库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">//recyclerview列表</span><br><span class="line">compile &apos;com.android.support:recyclerview-v7:25.0.0&apos;</span><br><span class="line">//design库，用于tablayout，CoordinatorLayout折叠布局等</span><br><span class="line">compile &apos;com.android.support:design:25.0.0&apos;</span><br><span class="line">//一键绑定控件</span><br><span class="line">compile &apos;com.jakewharton:butterknife:5.1.1&apos;</span><br><span class="line">compile &apos;com.android.support:appcompat-v7:25.0.0&apos;</span><br><span class="line">//网络请求</span><br><span class="line">compile &apos;com.squareup.picasso:picasso:2.5.2&apos;</span><br><span class="line">//ConstraintLayout</span><br><span class="line">compile &apos;com.android.support.constraint:constraint-layout:1.0.2&apos;</span><br><span class="line">//轮播控件</span><br><span class="line">compile &apos;com.youth.banner:banner:1.4.9&apos;</span><br><span class="line">//刷新加载控件</span><br><span class="line">compile &apos;com.cjj.materialrefeshlayout:library:1.3.0&apos;</span><br><span class="line">//折叠控件，解决了滚动冲突</span><br><span class="line">compile &apos;com.github.cpoopc:scrollablelayoutlib:1.0.1&apos;</span><br><span class="line">//RecyclerViewHeader</span><br><span class="line">compile &apos;com.bartoszlipinski:recyclerviewheader2:2.0.1&apos;</span><br></pre></td></tr></table></figure>
+<p>最后附上Demo地址：<a href="https://github.com/wapchief/imitationLOL" target="_blank" rel="noopener">https://github.com/wapchief/imitationLOL</a></p>
+<h5 id="新的分支"><a href="#新的分支" class="headerlink" title="新的分支"></a>新的分支</h5><p>添加了新的分支new，布局调整，使更接近于实际效果。<br>调整了header的位置，为了实现悬浮消失的效果，将header从recyclerView独立出来，放在了activity，并且对头部标题栏做了优化，<br>可以自助选择tab置顶的时候，标题栏是否消失。</p>
+<p>并且在标题栏选项中增加了一个彩蛋，是仿美团外卖配送时折叠的效果。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag"># android</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/27/20170709_3/" rel="next" title="RecyclerViewHeader+ViewFlipper仿淘宝头条滚动效果">
+                <i class="fa fa-chevron-left"></i> RecyclerViewHeader+ViewFlipper仿淘宝头条滚动效果
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/27/2/" rel="prev" title="必须要会的Git基本使用及常用命令操作">
+                必须要会的Git基本使用及常用命令操作 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">yano</p>
+              <p class="site-description motion-element" itemprop="description">简书：八怪不姓丑</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#新的分支"><span class="nav-number">1.</span> <span class="nav-text">新的分支</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yano</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

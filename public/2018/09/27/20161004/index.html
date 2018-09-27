@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="android," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="ListView布局包括checkbox(复选框)、img、title（商品名称）、type（分类）、两个Button（加减）、三个textview（原价，单价，数量），imgDelete（delete）">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ListView调用按钮删除某一行item">
+<meta property="og:url" content="http://yoursite.com/2018/09/27/20161004/index.html">
+<meta property="og:site_name" content="yano的博客">
+<meta property="og:description" content="ListView布局包括checkbox(复选框)、img、title（商品名称）、type（分类）、两个Button（加减）、三个textview（原价，单价，数量），imgDelete（delete）">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://img.blog.csdn.net/20160924180402067">
+<meta property="og:updated_time" content="2018-09-27T02:31:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ListView调用按钮删除某一行item">
+<meta name="twitter:description" content="ListView布局包括checkbox(复选框)、img、title（商品名称）、type（分类）、两个Button（加减）、三个textview（原价，单价，数量），imgDelete（delete）">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160924180402067">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/27/20161004/"/>
+
+
+
+
+
+  <title>ListView调用按钮删除某一行item | yano的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">yano的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Java、GoLANG、IT互联网</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/27/20161004/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yano">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="yano的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ListView调用按钮删除某一行item</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-27T10:31:47+08:00">
+                2018-09-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>ListView布局包括checkbox(复选框)、img、title（商品名称）、type（分类）、两个Button（加减）、三个textview（原价，单价，数量），imgDelete（delete）<br><a id="more"></a></p>
+<p><img src="http://img.blog.csdn.net/20160924180402067" alt="这里写图片描述"></p>
+<p>xml：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">    android:layout_width=&quot;match_parent&quot;</span><br><span class="line">    android:layout_height=&quot;90dp&quot;</span><br><span class="line">    android:background=&quot;@color/white&quot;</span><br><span class="line">    android:gravity=&quot;center_vertical&quot;</span><br><span class="line">    android:orientation=&quot;horizontal&quot;&gt;</span><br><span class="line">    &lt;!-- 小对勾的布局 --&gt;</span><br><span class="line">    &lt;CheckBox</span><br><span class="line">        android:id=&quot;@+id/shopping_lv_checkbox&quot;</span><br><span class="line">        android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        android:layout_marginLeft=&quot;@dimen/dp_10&quot;</span><br><span class="line">        android:focusable=&quot;false&quot;</span><br><span class="line">        android:focusableInTouchMode=&quot;false&quot; /&gt;</span><br><span class="line">    &lt;!-- 图片布局 --&gt;</span><br><span class="line">    &lt;ImageView</span><br><span class="line">        android:id=&quot;@+id/shopping_lv_img&quot;</span><br><span class="line">        android:layout_width=&quot;64dp&quot;</span><br><span class="line">        android:layout_height=&quot;64dp&quot;</span><br><span class="line">        android:layout_margin=&quot;10dp&quot;</span><br><span class="line">        android:scaleType=&quot;centerCrop&quot;</span><br><span class="line">        android:src=&quot;@mipmap/tuceng1&quot; /&gt;</span><br><span class="line">    &lt;!-- 商品名称和价格的布局 --&gt;</span><br><span class="line">    &lt;LinearLayout</span><br><span class="line">        android:layout_width=&quot;fill_parent&quot;</span><br><span class="line">        android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">        android:orientation=&quot;vertical&quot;&gt;</span><br><span class="line">        &lt;!-- 商品名称的布局 --&gt;</span><br><span class="line">        &lt;RelativeLayout</span><br><span class="line">            android:layout_width=&quot;match_parent&quot;</span><br><span class="line">            android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">            android:layout_marginTop=&quot;@dimen/dp_5&quot;</span><br><span class="line">            android:gravity=&quot;center_vertical&quot;&gt;</span><br><span class="line"></span><br><span class="line">            &lt;TextView</span><br><span class="line">                android:id=&quot;@+id/shopping_lv_title&quot;</span><br><span class="line">                android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">                android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">                android:text=&quot;连衣裙女夏季&quot;</span><br><span class="line">                android:textSize=&quot;@dimen/sp_14&quot; /&gt;</span><br><span class="line"></span><br><span class="line">            &lt;TextView</span><br><span class="line">                android:id=&quot;@+id/shopping_lv_moneyDel&quot;</span><br><span class="line">                android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">                android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">                android:layout_alignParentEnd=&quot;true&quot;</span><br><span class="line">                android:layout_alignParentTop=&quot;true&quot;</span><br><span class="line">                android:layout_marginEnd=&quot;20dp&quot;</span><br><span class="line">                android:text=&quot;1111&quot;</span><br><span class="line">                android:textSize=&quot;@dimen/sp_14&quot; /&gt;</span><br><span class="line"></span><br><span class="line">        &lt;/RelativeLayout&gt;</span><br><span class="line">        &lt;!-- 价格的布局 --&gt;</span><br><span class="line">        &lt;RelativeLayout</span><br><span class="line">            android:layout_width=&quot;match_parent&quot;</span><br><span class="line">            android:layout_height=&quot;30dp&quot;</span><br><span class="line">            android:gravity=&quot;center_vertical&quot;</span><br><span class="line">            android:orientation=&quot;horizontal&quot;&gt;</span><br><span class="line"></span><br><span class="line">            &lt;TextView</span><br><span class="line">                android:id=&quot;@+id/shopping_lv_content&quot;</span><br><span class="line">                android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">                android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">                android:layout_marginTop=&quot;10dp&quot;</span><br><span class="line">                android:text=&quot;500g&quot;</span><br><span class="line">                android:textSize=&quot;12sp&quot; /&gt;</span><br><span class="line"></span><br><span class="line">            &lt;TextView</span><br><span class="line">                android:id=&quot;@+id/shopping_lv_money&quot;</span><br><span class="line">                android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">                android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">                android:layout_alignParentEnd=&quot;true&quot;</span><br><span class="line">                android:layout_alignTop=&quot;@+id/shopping_lv_content&quot;</span><br><span class="line">                android:layout_gravity=&quot;bottom&quot;</span><br><span class="line">                android:layout_marginEnd=&quot;20dp&quot;</span><br><span class="line">                android:text=&quot;￥66&quot;</span><br><span class="line">                android:textColor=&quot;@color/balance_bg&quot;</span><br><span class="line">                android:textSize=&quot;16sp&quot; /&gt;</span><br><span class="line">        &lt;/RelativeLayout&gt;</span><br><span class="line"></span><br><span class="line">        &lt;RelativeLayout</span><br><span class="line">            android:layout_width=&quot;match_parent&quot;</span><br><span class="line">            android:layout_height=&quot;33dp&quot;</span><br><span class="line">            android:gravity=&quot;center_vertical&quot;</span><br><span class="line">            android:orientation=&quot;horizontal&quot;&gt;</span><br><span class="line">            &lt;!-- 加号 --&gt;</span><br><span class="line">            &lt;ImageView</span><br><span class="line">                android:id=&quot;@+id/shopping_lv_sub&quot;</span><br><span class="line">                android:layout_width=&quot;30dp&quot;</span><br><span class="line">                android:layout_height=&quot;30dp&quot;</span><br><span class="line">                android:background=&quot;@drawable/add_button_shape&quot;</span><br><span class="line">                android:src=&quot;@mipmap/icon_minus_3x&quot; /&gt;</span><br><span class="line"></span><br><span class="line">            &lt;TextView</span><br><span class="line">                android:id=&quot;@+id/shopping_lv_number&quot;</span><br><span class="line">                android:layout_width=&quot;30dp&quot;</span><br><span class="line">                android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">                android:layout_centerVertical=&quot;true&quot;</span><br><span class="line">                android:layout_marginLeft=&quot;@dimen/dp_10&quot;</span><br><span class="line">                android:layout_marginStart=&quot;10dp&quot;</span><br><span class="line">                android:layout_toEndOf=&quot;@+id/shopping_lv_sub&quot;</span><br><span class="line">                android:gravity=&quot;center&quot;</span><br><span class="line">                android:inputType=&quot;&quot;</span><br><span class="line">                android:text=&quot;1&quot;</span><br><span class="line">                android:textSize=&quot;13sp&quot; /&gt;</span><br><span class="line">            &lt;!-- 减号--&gt;</span><br><span class="line">            &lt;ImageView</span><br><span class="line">                android:id=&quot;@+id/shopping_lv_add&quot;</span><br><span class="line">                android:layout_width=&quot;30dp&quot;</span><br><span class="line">                android:layout_height=&quot;30dp&quot;</span><br><span class="line">                android:layout_alignTop=&quot;@+id/shopping_lv_sub&quot;</span><br><span class="line">                android:layout_marginLeft=&quot;@dimen/dp_10&quot;</span><br><span class="line">                android:layout_toEndOf=&quot;@+id/shopping_lv_number&quot;</span><br><span class="line">                android:background=&quot;@drawable/add_button_shape&quot;</span><br><span class="line">                android:src=&quot;@mipmap/icon_add_3x&quot; /&gt;</span><br><span class="line"></span><br><span class="line">            &lt;ImageView</span><br><span class="line">                android:id=&quot;@+id/shopping_lv_delete&quot;</span><br><span class="line">                android:layout_width=&quot;wrap_content&quot;</span><br><span class="line">                android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">                android:layout_alignParentEnd=&quot;true&quot;</span><br><span class="line">                android:layout_centerVertical=&quot;true&quot;</span><br><span class="line">                android:layout_marginEnd=&quot;20dp&quot;</span><br><span class="line">                android:layout_marginLeft=&quot;@dimen/dp_110&quot;</span><br><span class="line">                android:layout_marginRight=&quot;@dimen/dp_15&quot;</span><br><span class="line">                android:src=&quot;@mipmap/btn_delete_3x&quot; /&gt;</span><br><span class="line">        &lt;/RelativeLayout&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &lt;/LinearLayout&gt;</span><br><span class="line">&lt;/LinearLayout&gt;</span><br></pre></td></tr></table></figure></p>
+<p>获取listview中的imgDelete控件，执行删除单条纪录的操作。<br>ShoppingCartListViewAdapter：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"> private View.OnClickListener onDelItem;//删除单条item的接口</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  public View getView(final int i, View view, ViewGroup viewGroup) &#123;</span><br><span class="line">        ViewHolder holder = null;</span><br><span class="line">        if (view == null) &#123;</span><br><span class="line">            holder = new ViewHolder();</span><br><span class="line">            view = LayoutInflater.from(this.context).inflate(R.layout.shopping_listview_item, null, true);</span><br><span class="line">          //实例化item获取控件</span><br><span class="line">            holder.shopping_lv_delete = (ImageView) view.findViewById(R.id.shopping_lv_delete);</span><br><span class="line">            //设置回调监听</span><br><span class="line">            holder. shopping_lv_delete.setOnClickListener(onDelItem);</span><br><span class="line">            holder.shopping_lv_delete.setTag(i);</span><br><span class="line">            view.setTag(holder);</span><br><span class="line"></span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            holder = (ViewHolder) view.getTag();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> class ViewHolder &#123;</span><br><span class="line">        </span><br><span class="line">        ImageView shopping_lv_delete;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    /**</span><br><span class="line">    *定义监听接口</span><br><span class="line">    */</span><br><span class="line"> public void setOnDelItem(View.OnClickListener onDelItem) &#123;</span><br><span class="line">        this.onDelItem = onDelItem;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>Activity：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">private ShoppingCartListViewAdapter adapter;</span><br><span class="line">private ListView shopping_listview;</span><br><span class="line">private List&lt;ShoppingCartListView&gt; list = new ArrayList&lt;ShoppingCartListView&gt;();</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">shopping_lv_delete = (ImageView) findViewById(R.id.shopping_lv_delete);</span><br><span class="line">shopping_lv_delete.setOnClickListener(this);</span><br></pre></td></tr></table></figure>
+<p>onCreate方法中设置适配器的监听，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">adapter = new ShoppingCartListViewAdapter(getActivity(), list);</span><br><span class="line">       shopping_listview.setAdapter(adapter);</span><br><span class="line">       **adapter.setOnDelItem(this);**</span><br></pre></td></tr></table></figure>
+<p>通过Tag的position，获取当前点击的item，<br>这里使用了popupMenu。在点击删除的时候会弹出确认删除框</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">if (tag != null &amp;&amp; tag instanceof Integer) &#123; </span><br><span class="line">                int position = (Integer) tag;</span><br><span class="line">                showPopupMenu(view, position);</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//删除弹窗</span><br><span class="line">public void showPopupMenu(final View view, final int position) &#123;</span><br><span class="line">    final PopupMenu popup = new PopupMenu(getActivity(), view);</span><br><span class="line">    popup.getMenuInflater().inflate(R.menu.popup, popup.getMenu());</span><br><span class="line">    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public boolean onMenuItemClick(MenuItem menuItem) &#123;</span><br><span class="line">            switch (menuItem.getItemId()) &#123;</span><br><span class="line">                case R.id.remove:</span><br><span class="line">                    list.remove(position);</span><br><span class="line">                    adapter.notifyDataSetChanged();</span><br><span class="line">                    break;</span><br><span class="line">            &#125;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    popup.show();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>popup</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">    &lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</span><br><span class="line">        &lt;item</span><br><span class="line">            android:id=&quot;@+id/remove&quot;</span><br><span class="line">            android:title=&quot;@string/delete&quot;/&gt;</span><br><span class="line">    &lt;/menu&gt;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag"># android</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/27/20170709_1/" rel="next" title="使用Kotlin仿的简书个人主页，只需一个控件">
+                <i class="fa fa-chevron-left"></i> 使用Kotlin仿的简书个人主页，只需一个控件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/27/1/" rel="prev" title="使用hexo+github免费搭建个人博客网站超详细教程">
+                使用hexo+github免费搭建个人博客网站超详细教程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">yano</p>
+              <p class="site-description motion-element" itemprop="description">简书：八怪不姓丑</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yano</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
